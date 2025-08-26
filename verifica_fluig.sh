@@ -1,4 +1,4 @@
-# Desenvolvido por Alexandre dos Santos (Coxa) - 09-08-2025
+# Desenvolvido por Alexandre dos Santos (Coxa) - 26-08-2025
 #!/bin/bash
 
 ########################################
@@ -8,7 +8,15 @@
 WEBHOOK_URL="https://chat.googleapis.com/v1/spaces/AAQAoeiHNcU/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ApxNovCiJs6dKUcdDlbdmSfu9vqrGOH-Ft6J-G3GMqU"
 
 HOSTNAME_ATUAL=$(hostname)
-CLIENTE=$(echo "$HOSTNAME_ATUAL" | grep -oP '(?<=-FL-P-)[^-]+')
+
+# Extrai cliente do hostname
+CLIENTE_BASE=$(echo "$HOSTNAME_ATUAL" | grep -oP '(?<=-FL-P-)[^-]+')
+
+# Extrai fantasy_name do JSON
+FANTASY_NAME=$(jq -r '.customer.fantasy_name' /var/lib/cloud/instance/custom-data.json)
+
+# Concatena cliente e fantasy_name
+CLIENTE="${CLIENTE_BASE} - ${FANTASY_NAME}"
 
 RESUMO="Resumo execução - $(date '+%F %T')\nCliente: $CLIENTE\nHostname: $HOSTNAME_ATUAL\n"
 PROBLEMA_ENCONTRADO=0
@@ -127,7 +135,7 @@ if [[ "$status_externa" -eq 000 ]]; then
     RESUMO+="$msg\n"
     PROBLEMA_ENCONTRADO=1
 elif [[ "$status_externa" -eq 502 ]]; then
-    msg="$(date '+%F %T') - ERRO: URL externa retornou 502 (Bad Gateway)"
+    msg="$(date '+%F %T') - ERRO: URL externa ($url_externa) retornou 502 (Bad Gateway)"
     echo "$msg" | tee -a "$logfile"
     RESUMO+="$msg\n"
     PROBLEMA_ENCONTRADO=1
