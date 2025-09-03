@@ -12,8 +12,8 @@ curl -o replicador_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxn
 #Cloud_sustentação
 0 7 * * * /bin/bash /volume/CloudFluig/verifica_fluig.sh >> /volume/CloudFluig/verifica_fluig_cron.log 2>&1
 0 7 * * * /bin/bash /volume/CloudFluig/verifica_certificado.sh >> /volume/CloudFluig/verifica_certificados_cron.log 2>&1
-* * * * * /bin/bash /volume/CloudFluig/verifica_solr.sh >> /volume/CloudFluig/verifica_solr.log 2>&1
-0 * * * * truncate -s 0 /app/fluig/solr/logs/*.request.log
+#* * * * * /bin/bash /volume/CloudFluig/verifica_solr.sh >> /volume/CloudFluig/verifica_solr.log 2>&1
+#0 * * * * truncate -s 0 /app/fluig/solr/logs/*.request.log
 ######PARA O SERVIÇO TCloudDiscovery PARA MITIGAR SOBRECARGA DOS RECURSOS DO SERVIDOR######
 0 * * * * systemctl stop tclouddiscovery
 ######LIMPEZA DE ARQUIVOS ANTIGOS DE UPLOAD######
