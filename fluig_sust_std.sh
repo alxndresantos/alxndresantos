@@ -10,8 +10,9 @@ curl -o replicador_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxn
 # Adiciona as entradas no crontab do root
 (crontab -l 2>/dev/null; cat <<'EOF'
 #Cloud_sustentação
-0 7 * * * /bin/bash /volume/CloudFluig/verifica_fluig.sh >> /volume/CloudFluig/verifica_fluig_cron.log 2>&1
-0 7 * * * /bin/bash /volume/CloudFluig/verifica_certificado.sh >> /volume/CloudFluig/verifica_certificados_cron.log 2>&1
+*/15 22-23 * * * /bin/bash /volume/CloudFluig/verifica_fluig.sh >> /volume/CloudFluig/verifica_fluig_cron.log 2>&1
+*/15 0-6   * * * /bin/bash /volume/CloudFluig/verifica_fluig.sh >> /volume/CloudFluig/verifica_fluig_cron.log 2>&1
+0 9 * * * /bin/bash /volume/CloudFluig/verifica_certificado.sh >> /volume/CloudFluig/verifica_certificados_cron.log 2>&1
 #* * * * * /bin/bash /volume/CloudFluig/verifica_solr.sh >> /volume/CloudFluig/verifica_solr.log 2>&1
 #0 * * * * truncate -s 0 /app/fluig/solr/logs/*.request.log
 ######PARA O SERVIÇO TCloudDiscovery PARA MITIGAR SOBRECARGA DOS RECURSOS DO SERVIDOR######
