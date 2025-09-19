@@ -6,6 +6,7 @@ curl -o verifica_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndr
 curl -o verifica_certificado.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_certificado.sh && \
 curl -o verifica_solr.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_solr.sh
 curl -o replicador_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/replicador_fluig.sh
+curl -o import_key.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/import_key.sh
 
 # Adiciona as entradas no crontab do root
 (crontab -l 2>/dev/null; cat <<'EOF'
