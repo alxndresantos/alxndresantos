@@ -20,5 +20,6 @@ curl -o import_key.sh https://raw.githubusercontent.com/alxndresantos/alxndresan
 0 * * * * systemctl stop tclouddiscovery
 ######LIMPEZA DE ARQUIVOS ANTIGOS DE UPLOAD######
 0 6 * * * find /volume/wdk-data/upload/ -type f -mtime +7 -exec rm -f {} +
+#Cloud_sustentação
 EOF
 ) | crontab -
