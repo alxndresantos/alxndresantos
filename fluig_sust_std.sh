@@ -1,17 +1,24 @@
-# Cria a pasta e baixa os scripts
-mkdir -p /volume/CloudFluig && cd /volume/CloudFluig/ && \
-touch verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh && \
-chmod +x verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh && \
-curl -o verifica_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_fluig.sh && \
-curl -o verifica_certificado.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_certificado.sh && \
-curl -o verifica_solr.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_solr.sh
-curl -o replicador_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/replicador_fluig.sh
-curl -o import_key.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/import_key.sh
+#!/bin/bash
+# Desenvolvido por Alexandre dos Santos (Coxa) - 20-09-2025
 
-# Adiciona as entradas no crontab do root
-(crontab -l 2>/dev/null; cat <<'EOF'
+# Cria a pasta e baixa os scripts
+mkdir -p /volume/CloudFluig && cd /volume/CloudFluig/ || exit 1
+
+# Cria arquivos vazios e aplica permissão
+touch verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh
+chmod +x verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh
+
+# Baixa os scripts atualizados do GitHub
+curl -s -o verifica_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_fluig.sh
+curl -s -o verifica_certificado.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_certificado.sh
+curl -s -o verifica_solr.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_solr.sh
+curl -s -o replicador_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/replicador_fluig.sh
+curl -s -o import_key.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/import_key.sh
+
+# Remove bloco antigo do crontab e adiciona novamente
+(crontab -l 2>/dev/null | sed '/^#Cloud_sustentação$/,/^#Cloud_sustentação$/d'; cat <<'EOF'
 #Cloud_sustentação
-*/15 22-23 * * * /bin/bash /volume/CloudFluig/verifica_fluig.sh >> /volume/CloudFluig/verifica_fluig_cron.log 2>&1
+*/15 21-23 * * * /bin/bash /volume/CloudFluig/verifica_fluig.sh >> /volume/CloudFluig/verifica_fluig_cron.log 2>&1
 */15 0-6   * * * /bin/bash /volume/CloudFluig/verifica_fluig.sh >> /volume/CloudFluig/verifica_fluig_cron.log 2>&1
 0 9 * * * /bin/bash /volume/CloudFluig/verifica_certificado.sh >> /volume/CloudFluig/verifica_certificados_cron.log 2>&1
 #* * * * * /bin/bash /volume/CloudFluig/verifica_solr.sh >> /volume/CloudFluig/verifica_solr.log 2>&1
