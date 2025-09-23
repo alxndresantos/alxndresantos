@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script para analisar /var/lib/cloud/instance/custom-data.json
-# Desenvolvido por Alexandre dos Santos (Coxa) - 21-09-2025
+# Desenvolvido por Alexandre dos Santos (Coxa) - 22-09-2025
 
 JSON_FILE="/var/lib/cloud/instance/custom-data.json"
 LOG_FILE="/tmp/install_script_fluig.log"
