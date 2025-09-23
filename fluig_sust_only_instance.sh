@@ -5,8 +5,8 @@
 mkdir -p /volume/CloudFluig && cd /volume/CloudFluig/ || exit 1
 
 # Cria arquivos vazios e aplica permissão
-touch verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh resolve_resend.sh
-chmod +x verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh resolve_resend.sh
+touch verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh
+chmod +x verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh 
 
 # Baixa os scripts atualizados do GitHub
 curl -s -o verifica_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_fluig.sh
