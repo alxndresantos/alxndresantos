@@ -14,6 +14,7 @@ curl -s -o verifica_certificado.sh https://raw.githubusercontent.com/alxndresant
 curl -s -o verifica_solr.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_solr.sh
 curl -s -o replicador_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/replicador_fluig.sh
 curl -s -o import_key.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/import_key.sh
+curl -s -o resolve_resend.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/resolve_resend.sh
 
 # Remove bloco antigo do crontab e adiciona novamente
 (crontab -l 2>/dev/null | sed '/^#Cloud_sustentação$/,/^#Cloud_sustentação$/d'; cat <<'EOF'
