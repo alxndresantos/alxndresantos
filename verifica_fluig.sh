@@ -57,6 +57,7 @@ reinicia_fluig() {
 
     systemctl stop nginx
 
+bash /volume/CloudFluig/rotate_log.sh
     
     systemctl restart fluig
     sleep 10
