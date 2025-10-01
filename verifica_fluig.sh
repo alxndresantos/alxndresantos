@@ -57,8 +57,6 @@ reinicia_fluig() {
 
     systemctl stop nginx
 
-    # Chama o script externo antes de reiniciar o Fluig
-    /bin/bash /volume/CloudFluig/resolve_resend.sh >> "$logfile" 2>&1
     
     systemctl restart fluig
     sleep 10
