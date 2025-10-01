@@ -1,6 +1,6 @@
 #!/bin/bash
 # Load fluig variables
-. ./fluig.conf
+/volume/CloudFluig/fluig.conf
 
 # Clear temporary folders. 
 if [ -d  $JBOSS_SERVER/data/ ]; then   # Check if folder exists
