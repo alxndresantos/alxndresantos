@@ -5,8 +5,8 @@
 mkdir -p /volume/CloudFluig && cd /volume/CloudFluig/ || exit 1
 
 # Cria arquivos vazios e aplica permissão
-touch verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh
-chmod +x verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh 
+touch verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh rotate_log.sh fluig.conf clear_tmp_data.sh
+chmod +x verifica_fluig.sh verifica_certificado.sh verifica_solr.sh replicador_fluig.sh import_key.sh rotate_log.sh fluig.conf clear_tmp_data.sh
 
 # Baixa os scripts atualizados do GitHub
 curl -s -o verifica_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_fluig.sh
@@ -14,6 +14,9 @@ curl -s -o verifica_certificado.sh https://raw.githubusercontent.com/alxndresant
 curl -s -o verifica_solr.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/verifica_solr.sh
 curl -s -o replicador_fluig.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/replicador_fluig.sh
 curl -s -o import_key.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/import_key.sh
+curl -s -o rotate_log.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/rotate_log.sh
+curl -s -o fluig.conf https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/fluig.conf
+curl -s -o clear_tmp_data.sh https://raw.githubusercontent.com/alxndresantos/alxndresantos/main/clear_tmp_data.sh
 
 
 # Remove bloco antigo do crontab e adiciona novamente
