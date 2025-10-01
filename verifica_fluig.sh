@@ -32,6 +32,7 @@ IP_INTERNO=$(hostname -I | awk '{print $1}')
 url_interna="http://${IP_INTERNO}:8080/health-check"
 
 server_log="${LOG_DIR}/server.log"
+restart_file="${LOG_DIR}/last_restart"
 
 ########################################
 # BLOCO 2 - FUNÇÕES
@@ -56,9 +57,7 @@ reinicia_fluig() {
     PROBLEMA_ENCONTRADO=1
 
     systemctl stop nginx
-
-bash /volume/CloudFluig/rotate_log.sh
-    
+    #bash /volume/CloudFluig/rotate_log.sh
     systemctl restart fluig
     sleep 10
 
@@ -94,6 +93,8 @@ bash /volume/CloudFluig/rotate_log.sh
             msg="$(date '+%F %T') - URL externa respondeu com 200 após $((tentativas_externa+1)) tentativas. Serviços restaurados."
             echo "$msg" | tee -a "$logfile"
             RESUMO+="$msg\n"
+            # grava horário do restart
+            date +%s > "$restart_file"
             return
         fi
         sleep 10
@@ -159,13 +160,17 @@ if [[ "$status_interna" -eq 200 && "$status_externa" -eq 200 ]]; then
         found_travado=0
         linha_dataset=""
 
+        # pega timestamp do último restart (se existir)
+        last_restart=0
+        [[ -f "$restart_file" ]] && last_restart=$(cat "$restart_file")
+
         while read -r line; do
             log_time=$(echo "$line" | awk '{print $1" "$2}' | sed 's/,/./')
             log_epoch=$(date -d "${log_time%.*}" +%s 2>/dev/null)
             if [[ -n "$log_epoch" ]]; then
                 diff=$((now_epoch - log_epoch))
                 segundos=$(echo "$line" | awk '{for(i=1;i<=NF;i++){if($i=="por"){print $(i+1);break}}}')
-                if [[ $diff -le 900 && $segundos -gt 2000 ]]; then
+                if [[ $diff -le 900 && $segundos -gt 2000 && $log_epoch -gt $last_restart ]]; then
                     found_travado=1
                     linha_dataset="$line"
                     break
@@ -184,7 +189,7 @@ if [[ "$status_interna" -eq 200 && "$status_externa" -eq 200 ]]; then
             RESUMO+="$msg\n"
             reinicia_fluig
         else
-            msg="$(date '+%F %T') - Nenhum dataset travado encontrado."
+            msg="$(date '+%F %T') - Nenhum dataset novo travado encontrado."
             echo "$msg" | tee -a "$logfile"
             RESUMO+="$msg\n"
         fi
